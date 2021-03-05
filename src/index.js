@@ -1,17 +1,36 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from 'react'
+import {render} from 'react-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import User from './views/User'
+import Login from './views/Login'
+import './index.css'
+import { AuthContextProvider } from './context/AuthContext'
+import Signup from './views/Signup'
+import AuthRoute from './routes/AuthRoute'
+import KYC from './views/KYC'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+function App() {
+    return(
+        <div>
+            <AuthContextProvider>
+            <Switch>
+                <AuthRoute>
+                    <Route exact path="/" component={User} />
+                    <Route path="/kyc" component={KYC} />
+                </AuthRoute>
+                <Route path="/login" component={Login} />
+                <Route path="/signup" component={Signup}/>
+            </Switch>
+            </AuthContextProvider>
+        </div>
+    )
+}
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const root = document.getElementById('root')
+
+render(
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>,
+    root
+)
