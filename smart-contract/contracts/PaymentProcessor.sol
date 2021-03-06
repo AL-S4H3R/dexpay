@@ -12,6 +12,7 @@ contract PaymentProcessor {
         daiToken = IERC20(_daiToken);
     }
     
+    mapping(address => boolean) users;
     //events
     event PaymentDone (
         address _payer,
@@ -20,8 +21,16 @@ contract PaymentProcessor {
         uint256 _timestamp
     );
     
+    event UserVerified(address _user);
+
     function transact(uint256 _amount, uint256 _transactionId) public {
         daiToken.transferFrom(msg.sender, admin, _amount);
         emit PaymentDone(msg.sender, _amount, _transactionId, block.timestamp);
     }
+
+    function verifyUser(address _user) public {
+        users[_user] = true;
+        emit UserVerified(_user);
+    }
+
 }

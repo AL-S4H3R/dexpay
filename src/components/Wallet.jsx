@@ -29,7 +29,7 @@ const Wallet = () => {
                     <QRCode value={ethAddress}/>
                 </div>
                 <div className="flex justify-evenly">
-                    <button className="bg-black text-white p-2">Transfer</button>
+                    <button className="bg-black text-white p-2" onClick={() => setIsTransfer(true)}>Transfer</button>
                     <button className="bg-white text-black border-2 border-black p-2">Receive</button>
                 </div>
                 <div>
@@ -48,7 +48,7 @@ const TransferMoney = (props) => {
                 <input type="text" placeholder="Receiver's address" className="border w-full p-2"/>
                 <div className="flex justify-evenly">
                     <button className="bg-black text-white p-2">Confirm</button>
-                    <button className="border border-black p-2" onClick={() => props.setIsTransfer(true)}>Cancel</button>
+                    <button className="border border-black p-2" onClick={() => props.setIsTransfer(false)}>Cancel</button>
                 </div>
             </div>
         )
