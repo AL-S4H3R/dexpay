@@ -2,14 +2,14 @@ import React, { Children } from 'react'
 import { Redirect, Route } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
-const AuthRoute = ({component: Component, ...rest}) => {
+const AuthRoute = ({Children, ...rest}) => {
     const { currentUser } = useAuth()
     return(
         <Route
             {...rest}
             render={props => {
                 return currentUser !== null
-                ? <Component {...props}/>
+                ? <Children {...props}/>
                 : <Redirect to="/login"/>
             }}
         >

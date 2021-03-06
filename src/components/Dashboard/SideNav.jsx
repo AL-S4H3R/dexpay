@@ -1,7 +1,22 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext'
+import { useHistory } from 'react-router-dom'
 
 const SideNav = () => {
+
+    const history = useHistory()
+    const { logout } = useAuth()
+    const logoutHandler = async () => {
+        try{
+            await logout()
+            history.push('/login')
+        }
+        catch(err){
+
+        }
+    }
+
     return(
         <div className="px-8 py-4 space-y-8">
             <style>
@@ -16,7 +31,7 @@ const SideNav = () => {
                 <p className="hover:underline"><NavLink to="/">Dashboard</NavLink></p>
                 <p className="hover:underline"><NavLink to="/">Wallet</NavLink></p>
                 <p className="hover:underline"><NavLink to="/">Account</NavLink></p>
-                <p className="hover:underline"><NavLink to="/">Logout</NavLink></p>                
+                <button className="hover:underline" onClick={() => logoutHandler()}>Logout</button>                
             </div>    
         </div>
     )

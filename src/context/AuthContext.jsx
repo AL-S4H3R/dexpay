@@ -19,6 +19,7 @@ export const AuthContextProvider = ({children}) => {
     }
 
     const logout = () => {
+        setCurrentUser()
         return firebaseAuth.signOut()
     }
 
