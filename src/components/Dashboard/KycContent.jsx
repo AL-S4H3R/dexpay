@@ -65,7 +65,7 @@ const KycContent = () => {
         user.state = 'NY';
         user.zip = '12345';
         user.phone = '1234567890';
-        user.email = 'test_1@dexpay.com';
+        user.email = 'test_3@dexpay.com';
         user.dateOfBirth = '1990-01-01';
         user.ssn = '123456222';
         user.cryptoAddress = ethAddress;
