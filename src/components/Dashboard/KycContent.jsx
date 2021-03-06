@@ -5,9 +5,12 @@ import { initSila } from '../../config/silaConfig'
 import { v4 as uuid } from 'uuid'
 import { useSila } from '../../context/SilaContext'
 import { useHistory } from 'react-router-dom'
+import { mockDatabase } from '../../config/firebaseConfig'
+import 'firebase/firestore'
 
 const KycContent = () => {
-
+    
+    const { currentUser } = useAuth()
     React.useEffect(() => {
         initSila()
         console.log(currentUser)
@@ -18,6 +21,7 @@ const KycContent = () => {
     const [handle, setHandle] = React.useState('')
     const [firstName, setFirstName] = React.useState('')
     const [lastName, setLastName] = React.useState('')
+    const [email, setEmail] = React.useState('')
     const [city, setCity] = React.useState('')
     const [state, setState] = React.useState('')
     const [street, setStreet] = React.useState('')
@@ -25,12 +29,11 @@ const KycContent = () => {
     const [zip, setZip] = React.useState('')
     const [dob, setDob] = React.useState('')
     const [ssn, setSsn] = React.useState('')
-    const [privateKey, setPrivateKey] = React.useState('')
-    const [ethAddress, setEthAddress] = React.useState('')
+    // const [privateKey, setPrivateKey] = React.useState('')
+    // const [ethAddress, setEthAddress] = React.useState('')
 
-    const { currentUser } = useAuth()
     // const [kyc, setKyc] = React.useState(false)
-    const { isKyc, setIsKyc } = useSila()
+    const { isKyc, setIsKyc, ethAddress, setEthAddress, privateKey, setPrivateKey } = useSila()
 
     const registerUser = async () => {
         console.log("Creating wallet")
@@ -65,7 +68,7 @@ const KycContent = () => {
         user.state = 'NY';
         user.zip = '12345';
         user.phone = '1234567890';
-        user.email = 'test_3@dexpay.com';
+        user.email = email;
         user.dateOfBirth = '1990-01-01';
         user.ssn = '123456222';
         user.cryptoAddress = ethAddress;
@@ -93,7 +96,13 @@ const KycContent = () => {
         if(message === `${handle} has passed ID verification!`){
             console.log(message)
             setIsKyc(true)
+            // const res = await mockDatabase.collection('users').add({
+            //     email: email,
+            //     isKyc: true
+            // })
+            // console.log(`Document with ${res.id} added.`)
             history.push('/bank')
+            return
         }
     }
 
@@ -156,6 +165,9 @@ const KycContent = () => {
                     <div className="space-x-4">
                         <input type="text" placeholder="First Name" name="firstName" onChange={(e) => inputChangehandler(e)} value={firstName} className="border p-2"/>
                         <input type="text" placeholder="Last Name" name="lastName" onChange={(e) => inputChangehandler(e)} value={lastName} className="border p-2"/>
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Email linked to your bank account" name="email" onChange={(e) => setEmail(e.target.value)} value={email} className="border p-2 w-full"/>
                     </div>
                     <div className="space-x-4">
                         <input type="text" placeholder="City" name="city" onChange={(e) => inputChangehandler(e)} value={city} className="border p-2"/>
