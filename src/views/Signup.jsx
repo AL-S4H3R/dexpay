@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import { Link, NavLink, useHistory } from 'react-router-dom'
 import bg from '../assets/svg/dark-bg.svg'
+import { mockDatabase } from '../config/firebaseConfig'
 import { useAuth } from '../context/AuthContext'
 
 const Signup = () => {
@@ -17,6 +18,9 @@ const Signup = () => {
         setLoading(true)
         try {
             await createUser(email, password)
+            await mockDatabase.collection('users').add({
+                email: email
+            })
             history.push("/")        
         }
         catch(err){

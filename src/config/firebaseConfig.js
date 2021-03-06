@@ -1,6 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/analytics'
 import 'firebase/auth'
+import 'firebase/firestore'
 
 var firebaseConfig = {
     apiKey: "AIzaSyAKByzgMCAmQWc3kYFwCQUxbG6UMejg_eg",
@@ -14,3 +15,4 @@ var firebaseConfig = {
   // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig)
 export const firebaseAuth = app.auth()
+export const mockDatabase = app.firestore()

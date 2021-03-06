@@ -10,7 +10,7 @@ const KYC = () => {
                     <div className="w-1/4 text-white" style={{backgroundColor:"#202225"}}>
                         <SideNav />
                     </div>
-                    <div>
+                    <div className="flex justify-center h-screen w-3/4">
                         <KycContent/>
                     </div>
                 </div>

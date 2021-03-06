@@ -9,6 +9,8 @@ import Signup from './views/Signup'
 import AuthRoute from './routes/AuthRoute'
 import KYC from './views/KYC'
 import { initSila } from './config/silaConfig'
+import SilaContextProvider from './context/SilaContext'
+import Bank from './views/Bank'
 
 function App() {
     React.useEffect(() => {
@@ -17,14 +19,14 @@ function App() {
     return(
         <div>
             <AuthContextProvider>
+            <SilaContextProvider>
             <Switch>
                 <AuthRoute exact path="/" component={KYC}/>
-                    {/* <Route exact path="/" component={User} /> */}
-                    {/* <Route path="/kyc" component={KYC} />
-                    <Redirect to="/" /> */}
+                <AuthRoute exact path="/bank" component={Bank} />
                 <Route path="/login" component={Login} />
                 <Route path="/signup" component={Signup}/>
             </Switch>
+            </SilaContextProvider>
             </AuthContextProvider>
         </div>
     )
